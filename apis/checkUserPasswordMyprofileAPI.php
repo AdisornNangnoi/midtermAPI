@@ -15,7 +15,7 @@ $myprofile = new Myprofile($connDB->getConnectionDB());
 $data = json_decode(file_get_contents("php://input"));
 
 //เอาค่าในตัวแปรกำหนดให้กับ ตัวแปรของ Model ที่สร้างไว้
-$myprofile->email = $data->email;
+$myprofile->username = $data->username;
 $myprofile->password = $data->password;
 
 
@@ -29,8 +29,8 @@ if ($result->rowCount() > 0) {
     extract($resultData);
     //สร้างตัวแปรอาร์เรย์เก็บข้อมูล
     $resultArray = array(
-
-        "รหัสผู้ใช้" => $user_id,
+        "message" => "1",
+        "รหัสผู้ใช้" => strval($user_id),
         "ชื่อผู้ใช้" => $username,
         "อีเมล์" => $email
     );

@@ -27,17 +27,17 @@ class Myprofile
     public function checkUserPasswordMyprofile()
     {
         //ตัวแปรเก็บคำสั่ง SQL
-        $strSQL = "SELECT * FROM myprofile_tb WHERE email = :email AND password = :password";
+        $strSQL = "SELECT * FROM myprofile_tb WHERE username = :username AND password = :password";
 
         //ตรวจสอบค่าที่ถูกส่งจาก Client/User ก่อนที่จะกำหนดให้กับ parameters (:????)
-        $this->email = htmlspecialchars(strip_tags($this->email));
+        $this->username = htmlspecialchars(strip_tags($this->username));
         $this->password = htmlspecialchars(strip_tags($this->password));
 
         //สร้างตัวแปรที่ใช้ทำงานกับคำสั่ง SQL
         $stmt = $this->connDB->prepare($strSQL);
 
         //เอาที่ผ่านการตรวจแล้วไปกำหนดให้กับ parameters
-        $stmt->bindParam(":email", $this->email);
+        $stmt->bindParam(":username", $this->username);
         $stmt->bindParam(":password", $this->password);
 
         //สั่งให้ SQL ทำงาน
