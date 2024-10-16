@@ -26,13 +26,13 @@ $result = $myprofile->newMyprofile();
 if ($result == true) {
     //insert-update-delete สำเร็จ
     $resultArray = array(
-        "message" => "เพิ่มผู้ใช้ใหม่เรียบร้อย!!"
+        "message" => "1"
     );
     echo json_encode($resultArray, JSON_UNESCAPED_UNICODE);
 } else {
     //insert-update-delete ไม่สำเร็จ
     $resultArray = array(
-        "message" => "เพิ่มผู้ใช้ใหม่ไม่สำเร็จ!!"
+        "message" => "0"
     );
     echo json_encode($resultArray, JSON_UNESCAPED_UNICODE);
 }

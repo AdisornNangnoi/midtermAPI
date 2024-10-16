@@ -29,14 +29,14 @@ if ($result->rowCount() > 0) {
         extract($resultData);
         //สร้างตัวแปรอาร์เรย์เก็บข้อมูล
         $resultArray = array(
-            "รหัสการเดินทาง" => $trip_id,
-            "รหัสผู้ใช้" => $user_id,
-            "วันที่เริ่ม" => $start_date,
-            "วันที่สิ้นสุด" => $end_date,
-            "ชื่อสถานที่" => $location_name,
-            "ละติจูด" => $latitude,
-            "ลองติจูด" => $longitude,
-            "ค่าใช้จ่าย" => $cost
+            "trip_id" => $trip_id,
+            "user_id" => $user_id,
+            "start_date" => $start_date,
+            "end_date" => $end_date,
+            "location_name" => $location_name,
+            "latitude" => $latitude,
+            "longitude" => $longitude,
+            "cost" => $cost
         );
         array_push($resultInfo, $resultArray);
     }

@@ -1,6 +1,6 @@
 <?php
 header("Access-Control-Allow-Origin: *");
-header("Access-Control-Allow-Methods: GET"); //POST, PUT, DELETE
+header("Access-Control-Allow-Methods: PUT");  //POST, PUT, DELETE
 header("Access-Control-Allow-Headers: Content-Type");
 header("Content-Type: application/json; charset=UTF-8");
 
@@ -15,31 +15,24 @@ $myprofile = new Myprofile($connDB->getConnectionDB());
 $data = json_decode(file_get_contents("php://input"));
 
 //เอาค่าในตัวแปรกำหนดให้กับ ตัวแปรของ Model ที่สร้างไว้
+$myprofile->user_id = $data->user_id;
 $myprofile->username = $data->username;
 $myprofile->password = $data->password;
-
+$myprofile->email = $data->email;
 
 //เรียกใช้ฟังก์ชันตรวจสอบชื่อผู้ใช้ รหัสผ่าน
-$result = $myprofile->checkUserPasswordMyprofile();
+$result = $myprofile->updateMyprofile();
 
 //ตรวจสอบข้อมูลจากการเรัยกใช้ฟังก์ชันตรวจสอบชื่อผู้ใช้ รหัสผ่าน
-if ($result->rowCount() > 0) {
-    //Extract ข้อมูลที่ได้มาจากคำสั่ง SQL เก็บในตัวแปร
-    $resultData = $result->fetch(PDO::FETCH_ASSOC);
-    extract($resultData);
-    //สร้างตัวแปรอาร์เรย์เก็บข้อมูล
+if ($result == true) {
+    //insert-update-delete สำเร็จ
     $resultArray = array(
-        "message" => "1",
-        "user_id" => strval($user_id),
-        "username" => $username,
-        "email" => $email,
-        "password" => $password
+        "message" => "1"
     );
-    echo json_encode($resultArray, JSON_UNESCAPED_UNICODE);
-    //echo json_encode(array("message" => "เข้าสู่ระบบ!!"));
 } else {
+    //insert-update-delete ไม่สำเร็จ
     $resultArray = array(
         "message" => "0"
     );
-    echo json_encode(array("message" => "ชื่อผู้ใช้ หรือ รหัสผ่านไม่ถูกต้อง"));
 }
+echo json_encode($resultArray, JSON_UNESCAPED_UNICODE);

@@ -27,17 +27,17 @@ class Myprofile
     public function checkUserPasswordMyprofile()
     {
         //ตัวแปรเก็บคำสั่ง SQL
-        $strSQL = "SELECT * FROM myprofile_tb WHERE email = :email AND password = :password";
+        $strSQL = "SELECT * FROM myprofile_tb WHERE username = :username AND password = :password";
 
         //ตรวจสอบค่าที่ถูกส่งจาก Client/User ก่อนที่จะกำหนดให้กับ parameters (:????)
-        $this->email = htmlspecialchars(strip_tags($this->email));
+        $this->username = htmlspecialchars(strip_tags($this->username));
         $this->password = htmlspecialchars(strip_tags($this->password));
 
         //สร้างตัวแปรที่ใช้ทำงานกับคำสั่ง SQL
         $stmt = $this->connDB->prepare($strSQL);
 
         //เอาที่ผ่านการตรวจแล้วไปกำหนดให้กับ parameters
-        $stmt->bindParam(":email", $this->email);
+        $stmt->bindParam(":username", $this->username);
         $stmt->bindParam(":password", $this->password);
 
         //สั่งให้ SQL ทำงาน
@@ -75,7 +75,7 @@ class Myprofile
 
     public function updateMyprofile()
     {
-        $strSQL = "";
+        $strSQL = " UPDATE myprofile_tb SET username = :username, email = :email, password = :password WHERE user_id = :user_id ";
 
 
         //ตรวจสอบค่าที่ถูกส่งจาก Client/User ก่อนที่จะกำหนดให้กับ parameters (:????)
@@ -83,7 +83,7 @@ class Myprofile
         $this->username = htmlspecialchars(strip_tags($this->username));
         $this->password = intval(htmlspecialchars(strip_tags($this->password)));
         $this->email = htmlspecialchars(strip_tags($this->email));
-        $this->created_at = htmlspecialchars(strip_tags($this->created_at));
+
 
         //สร้างตัวแปรที่ใช้ทำงานกับคำสั่ง SQL
         $stmt = $this->connDB->prepare($strSQL);
@@ -93,7 +93,7 @@ class Myprofile
         $stmt->bindParam(":username", $this->username);
         $stmt->bindParam(":password", $this->password);
         $stmt->bindParam(":email", $this->email);
-        $stmt->bindParam(":created_at", $this->created_at);
+
 
         //สั่งให้ SQL ทำงาน และส่งผลลัพธ์ว่าเพิ่มข้อมูลสําเร็จหรือไม่
         if ($stmt->execute()) {
